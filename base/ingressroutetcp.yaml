@@ -1,0 +1,12 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: postgres-tcp
+spec:
+  entryPoints:
+    - postgres # The custom TCP port 5432 entrypoint you opened in Traefik
+  routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: postgres-internal
+      port: 5432
